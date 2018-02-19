@@ -27,6 +27,7 @@ public class AccountServiceProvider implements AccountService {
 
     @Override
     public StatementResponseDTO withdraw(AccountReqDTO withdrawReqDTO) {
+        Mapper mapper = new Mapper();
         Customer customer = customerRepository.
                 findByEmailAndPassword(withdrawReqDTO.getEmail(), withdrawReqDTO.getPassword());
         if (customer == null) throw new RuntimeException("unahtorized attempt");
@@ -44,11 +45,12 @@ public class AccountServiceProvider implements AccountService {
         accountOpt.get().setBalance(statement.getCurrent());
         accountRepository.save(accountOpt.get());
         statementRepository.save(statement);
-        return Mapper.statementToResponseDTO(statement);
+        return mapper.statementToResponseDTO(statement);
     }
 
     @Override
     public StatementResponseDTO deposit(AccountReqDTO withdrawReqDTO) {
+        Mapper mapper = new Mapper();
         Customer customer = customerRepository.
                 findByEmail(withdrawReqDTO.getEmail());
         if (customer == null) throw new RuntimeException("unahtorized attempt");
@@ -66,7 +68,7 @@ public class AccountServiceProvider implements AccountService {
         accountOpt.get().setBalance(statement.getCurrent());
         accountRepository.save(accountOpt.get());
         statementRepository.save(statement);
-        return Mapper.statementToResponseDTO(statement);
+        return mapper.statementToResponseDTO(statement);
     }
 
     @Override

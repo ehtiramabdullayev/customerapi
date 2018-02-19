@@ -27,6 +27,7 @@ public class StatementServiceProvider implements StatementService {
     private AccountRepository accountRepository;
     @Override
     public List<StatementResponseDTO> getStatements(AccountReqDTO reqDTO) {
+        Mapper mapper = new Mapper();
         Customer customer = customerRepository.
                 findByEmail(reqDTO.getEmail());
         if (customer == null) throw new RuntimeException("unahtorized attempt");
@@ -38,7 +39,7 @@ public class StatementServiceProvider implements StatementService {
                 .findByAccount(accountOpt.get());
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>."+statements);
 
-        return statements.stream().map(st -> Mapper.statementToResponseDTO(st)).collect(Collectors.toList());
+        return statements.stream().map(st -> mapper.statementToResponseDTO(st)).collect(Collectors.toList());
     }
 
     @Autowired

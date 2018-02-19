@@ -22,16 +22,17 @@ public class CustomerServiceProvider implements CustomerService {
 
     @Override
     public FreshCustomerResponseDTO registerCustomer(FreshCustomerDTO customerDTO) {
+        Mapper mapper = new Mapper();
         Account account = new Account();
         account.setStatus(Account.Status.ACTIVE);
         account.setaccountNo(UUID.randomUUID().toString().substring(0,10).concat(customerDTO.getEmail()));
         account.setBalance(0D);
-        Customer convertedCustomer = Mapper.customerDTOToCustomer(customerDTO);
+        Customer convertedCustomer = mapper.customerDTOToCustomer(customerDTO);
         convertedCustomer.setAccounts(new HashSet<>());
         convertedCustomer.getAccounts().add(account);
         account.setCustomer(convertedCustomer);
         Customer customer = customerRepository.save(convertedCustomer);
-        return Mapper.customerToCustomerResponseDTO(customer);
+        return mapper.customerToCustomerResponseDTO(customer);
     }
 
     @Autowired
