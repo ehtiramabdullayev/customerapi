@@ -10,7 +10,7 @@ import java.util.Date;
 public class StatementResponseDTO {
 
     private Double previousBalance;
-    private  Double withdrawedAmount;
+    private Double transactionAmount;
     private Double currentBalance;
     private String accountNo;
     private Date operationDate;
@@ -23,12 +23,12 @@ public class StatementResponseDTO {
         this.previousBalance = previousBalance;
     }
 
-    public Double getWithdrawedAmount() {
-        return withdrawedAmount;
+    public Double getTransactionAmount() {
+        return transactionAmount;
     }
 
-    public void setWithdrawedAmount(Double withdrawedAmount) {
-        this.withdrawedAmount = withdrawedAmount;
+    public void setTransactionAmount(Double transactionAmount) {
+        this.transactionAmount = transactionAmount;
     }
 
     public Double getCurrentBalance() {

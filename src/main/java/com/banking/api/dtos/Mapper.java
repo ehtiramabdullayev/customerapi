@@ -35,7 +35,7 @@ public class Mapper {
         responseDTO.setCurrentBalance(statement.getCurrent());
         responseDTO.setOperationDate(statement.getOperationDate());
         responseDTO.setPreviousBalance(statement.getPrevious());
-        responseDTO.setWithdrawedAmount(statement.getMovement());
+        responseDTO.setTransactionAmount(statement.getMovement());
         return responseDTO;
     }
 
