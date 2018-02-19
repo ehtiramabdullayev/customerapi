@@ -1,6 +1,6 @@
 package com.banking.services;
 
-import com.banking.api.dtos.AccountWithdrawReqDTO;
+import com.banking.api.dtos.AccountReqDTO;
 import com.banking.api.dtos.Mapper;
 import com.banking.api.dtos.StatementResponseDTO;
 import com.banking.domains.Account;
@@ -26,7 +26,7 @@ public class StatementServiceProvider implements StatementService {
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
     @Override
-    public List<StatementResponseDTO> getStatements(AccountWithdrawReqDTO reqDTO) {
+    public List<StatementResponseDTO> getStatements(AccountReqDTO reqDTO) {
         Customer customer = customerRepository.
                 findByEmail(reqDTO.getEmail());
         if (customer == null) throw new RuntimeException("unahtorized attempt");

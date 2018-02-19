@@ -1,6 +1,6 @@
 package com.banking.api.resources;
 
-import com.banking.api.dtos.AccountWithdrawReqDTO;
+import com.banking.api.dtos.AccountReqDTO;
 import com.banking.api.dtos.FreshCustomerDTO;
 import com.banking.api.dtos.FreshCustomerResponseDTO;
 import com.banking.api.dtos.StatementResponseDTO;
@@ -34,7 +34,7 @@ public class ClientResource {
     @PutMapping
     @RequestMapping("/account/withdraw")
     @ResponseStatus(HttpStatus.OK)
-    public StatementResponseDTO withdraw(@RequestBody AccountWithdrawReqDTO withdrawReqDTO){
+    public StatementResponseDTO withdraw(@RequestBody AccountReqDTO withdrawReqDTO){
         return accountService.withdraw(withdrawReqDTO);
     }
 
@@ -42,21 +42,21 @@ public class ClientResource {
     @PutMapping
     @RequestMapping("/account/deposit")
     @ResponseStatus(HttpStatus.OK)
-    public StatementResponseDTO deposit(@RequestBody AccountWithdrawReqDTO withdrawReqDTO){
+    public StatementResponseDTO deposit(@RequestBody AccountReqDTO withdrawReqDTO){
         return accountService.deposit(withdrawReqDTO);
     }
 
     @PostMapping
     @RequestMapping("/account/balance")
     @ResponseStatus(HttpStatus.OK)
-    public Double getBalance(@RequestBody AccountWithdrawReqDTO accountReqDTO){
+    public Double getBalance(@RequestBody AccountReqDTO accountReqDTO){
         return accountService.getAccountBalance(accountReqDTO);
     }
 
     @PostMapping
     @RequestMapping("/account/statements")
     @ResponseStatus(HttpStatus.OK)
-    public List<StatementResponseDTO> getStatements(@RequestBody AccountWithdrawReqDTO accountReqDTO){
+    public List<StatementResponseDTO> getStatements(@RequestBody AccountReqDTO accountReqDTO){
         return statementService.getStatements(accountReqDTO);
     }
 

@@ -3,7 +3,7 @@ package com.banking.api.dtos;
 /**
  * Created by Master on 2/19/2018.
  */
-public class AccountWithdrawReqDTO extends FreshCustomerDTO{
+public class AccountReqDTO extends FreshCustomerDTO{
 
     private String accountNo;
     private Double amount;

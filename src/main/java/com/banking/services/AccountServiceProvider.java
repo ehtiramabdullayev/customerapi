@@ -1,6 +1,6 @@
 package com.banking.services;
 
-import com.banking.api.dtos.AccountWithdrawReqDTO;
+import com.banking.api.dtos.AccountReqDTO;
 import com.banking.api.dtos.Mapper;
 import com.banking.api.dtos.StatementResponseDTO;
 import com.banking.domains.Account;
@@ -12,7 +12,6 @@ import com.banking.repos.StatementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class AccountServiceProvider implements AccountService {
     private StatementRepository statementRepository;
 
     @Override
-    public StatementResponseDTO withdraw(AccountWithdrawReqDTO withdrawReqDTO) {
+    public StatementResponseDTO withdraw(AccountReqDTO withdrawReqDTO) {
         Customer customer = customerRepository.
                 findByEmailAndPassword(withdrawReqDTO.getEmail(), withdrawReqDTO.getPassword());
         if (customer == null) throw new RuntimeException("unahtorized attempt");
@@ -49,7 +48,7 @@ public class AccountServiceProvider implements AccountService {
     }
 
     @Override
-    public StatementResponseDTO deposit(AccountWithdrawReqDTO withdrawReqDTO) {
+    public StatementResponseDTO deposit(AccountReqDTO withdrawReqDTO) {
         Customer customer = customerRepository.
                 findByEmail(withdrawReqDTO.getEmail());
         if (customer == null) throw new RuntimeException("unahtorized attempt");
@@ -71,7 +70,7 @@ public class AccountServiceProvider implements AccountService {
     }
 
     @Override
-    public Double getAccountBalance(AccountWithdrawReqDTO accountRequestDTO) {
+    public Double getAccountBalance(AccountReqDTO accountRequestDTO) {
         Customer customer = customerRepository.
                 findByEmail(accountRequestDTO.getEmail());
         if (customer == null) throw new RuntimeException("unahtorized attempt");
