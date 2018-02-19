@@ -1,5 +1,7 @@
 package com.banking.domains;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,8 +23,8 @@ public class Statement implements Serializable{
     private Double movement;
     private Double current;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date operationDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    private LocalDateTime  operationDate;
 
     public Long getId() {
         return id;
@@ -64,11 +66,11 @@ public class Statement implements Serializable{
         this.current = current;
     }
 
-    public Date getOperationDate() {
+    public LocalDateTime getOperationDate() {
         return operationDate;
     }
 
-    public void setOperationDate(Date operationDate) {
+    public void setOperationDate(LocalDateTime operationDate) {
         this.operationDate = operationDate;
     }
 }

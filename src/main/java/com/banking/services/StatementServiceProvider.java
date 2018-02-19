@@ -30,7 +30,7 @@ public class StatementServiceProvider implements StatementService {
         Mapper mapper = new Mapper();
         Customer customer = customerRepository.
                 findByEmail(reqDTO.getEmail());
-        if (customer == null) throw new RuntimeException("unahtorized attempt");
+        if (customer == null) throw new RuntimeException("unauthorized attempt");
         Optional<Account> accountOpt = customer.getAccounts().stream().
                 filter(acc -> acc.getaccountNo().equalsIgnoreCase(reqDTO.getAccountNo())).findFirst();
         if (!accountOpt.isPresent()) throw new RuntimeException("wrong account number");

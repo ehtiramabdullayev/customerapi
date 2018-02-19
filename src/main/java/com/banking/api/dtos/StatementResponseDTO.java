@@ -13,7 +13,7 @@ public class StatementResponseDTO {
     private Double transactionAmount;
     private Double currentBalance;
     private String accountNo;
-    private Date operationDate;
+    private LocalDateTime operationDate;
 
     public Double getPreviousBalance() {
         return previousBalance;
@@ -47,11 +47,11 @@ public class StatementResponseDTO {
         this.accountNo = accountNo;
     }
 
-    public Date getOperationDate() {
+    public LocalDateTime getOperationDate() {
         return operationDate;
     }
 
-    public void setOperationDate(Date operationDate) {
+    public void setOperationDate(LocalDateTime operationDate) {
         this.operationDate = operationDate;
     }
 }

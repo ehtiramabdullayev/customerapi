@@ -12,6 +12,7 @@ import com.banking.repos.StatementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public class AccountServiceProvider implements AccountService {
         statement.setPrevious(accountOpt.get().getBalance());
         statement.setMovement(withdrawReqDTO.getAmount());
         statement.setCurrent(accountOpt.get().getBalance() - statement.getMovement());
-        statement.setOperationDate(new Date());
+        statement.setOperationDate(LocalDateTime.now());
         accountOpt.get().setBalance(statement.getCurrent());
         accountRepository.save(accountOpt.get());
         statementRepository.save(statement);
@@ -49,22 +50,22 @@ public class AccountServiceProvider implements AccountService {
     }
 
     @Override
-    public StatementResponseDTO deposit(AccountReqDTO withdrawReqDTO) {
+    public StatementResponseDTO deposit(AccountReqDTO depositReqDTO) {
         Mapper mapper = new Mapper();
         Customer customer = customerRepository.
-                findByEmail(withdrawReqDTO.getEmail());
+                findByEmail(depositReqDTO.getEmail());
         if (customer == null) throw new RuntimeException("unahtorized attempt");
         Optional<Account> accountOpt = customer.getAccounts().stream().
-                filter(acc -> acc.getaccountNo().equalsIgnoreCase(withdrawReqDTO.getAccountNo())).findFirst();
+                filter(acc -> acc.getaccountNo().equalsIgnoreCase(depositReqDTO.getAccountNo())).findFirst();
         if (!accountOpt.isPresent()) throw new RuntimeException("wrong account number");
-        if (withdrawReqDTO.getAmount() < 0)
+        if (depositReqDTO.getAmount() < 0)
             throw new RuntimeException("negative amount detected");
         Statement statement = new Statement();
         statement.setAccount(accountOpt.get());
         statement.setPrevious(accountOpt.get().getBalance());
-        statement.setMovement(withdrawReqDTO.getAmount());
+        statement.setMovement(depositReqDTO.getAmount());
         statement.setCurrent(accountOpt.get().getBalance() + statement.getMovement());
-        statement.setOperationDate(new Date());
+        statement.setOperationDate(LocalDateTime.now());
         accountOpt.get().setBalance(statement.getCurrent());
         accountRepository.save(accountOpt.get());
         statementRepository.save(statement);
@@ -75,7 +76,7 @@ public class AccountServiceProvider implements AccountService {
     public Double getAccountBalance(AccountReqDTO accountRequestDTO) {
         Customer customer = customerRepository.
                 findByEmail(accountRequestDTO.getEmail());
-        if (customer == null) throw new RuntimeException("unahtorized attempt");
+        if (customer == null) throw new RuntimeException("unauthorized attempt");
         Optional<Account> accountOpt = customer.getAccounts().stream().
                 filter(acc -> acc.getaccountNo().equalsIgnoreCase(accountRequestDTO.getAccountNo())).findFirst();
         if (!accountOpt.isPresent()) throw new RuntimeException("wrong account number");
